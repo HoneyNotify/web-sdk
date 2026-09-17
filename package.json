@@ -1,0 +1,13 @@
+{
+  "name": "@honeynotify/web-sdk",
+  "version": "0.1.0",
+  "description": "HoneyNotify Web Push SDK",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
