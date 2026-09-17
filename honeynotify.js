@@ -1,16 +1,17 @@
 export class HoneyNotify {
-  constructor({ baseURL, clientKey, vapidPublicKey, serviceWorkerPath = "/honeynotify-sw.js" }) {
+  constructor({ baseURL, clientKey, vapidPublicKey, serviceWorkerPath = "/honeynotify-sw.js", serviceWorkerScope = "/" }) {
     this.baseURL = baseURL.replace(/\/$/, "");
     this.clientKey = clientKey;
     this.vapidPublicKey = vapidPublicKey;
     this.serviceWorkerPath = serviceWorkerPath;
+    this.serviceWorkerScope = serviceWorkerScope;
   }
 
   async requestPermissionAndRegister({ externalUserId, identityToken, tags = {} } = {}) {
     if (!("serviceWorker" in navigator) || !("PushManager" in window)) throw new Error("Web Push is not supported");
     const permission = await Notification.requestPermission();
     if (permission !== "granted") return null;
-    const registration = await navigator.serviceWorker.register(this.serviceWorkerPath);
+    const registration = await navigator.serviceWorker.register(this.serviceWorkerPath, { scope: this.serviceWorkerScope });
     const subscription = await registration.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: this.#key(this.vapidPublicKey) });
     const response = await this.#request("/v1/devices/register", {
       platform: "web",
