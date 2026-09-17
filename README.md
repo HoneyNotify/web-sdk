@@ -2,8 +2,6 @@
 
 The HoneyNotify Web SDK registers standards-based Web Push subscriptions and reports notification lifecycle events to HoneyNotify.
 
-The canonical source lives in [`sdks/web`](https://github.com/charlesbradber/HoneyNotify/tree/main/sdks/web). Changes merged there are tested and mirrored automatically to this repository.
-
 ## Requirements
 
 - A browser with Service Worker, Push API, and Notification API support
